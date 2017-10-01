@@ -1,0 +1,54 @@
+﻿@model IEnumerable<BD_App.Models.Customer>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>List of customers: database was created and seeded</h2>
+
+<p>
+    @Html.ActionLink("Show orders", "Index", "Orders")
+    <br />
+    @Html.ActionLink("Show products", "Index", "Products")
+    @*<br />
+    @Html.ActionLink("Show order with products", "Index", "Order_Product")*@
+    <br/>
+    <br/>
+    @Html.ActionLink("Create new customer", "Create")
+    <br />
+  
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Address)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Categorry)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Address)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Categorry)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+        </td>
+    </tr>
+}
+
+</table>

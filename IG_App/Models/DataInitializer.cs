@@ -13,13 +13,16 @@ namespace BD_App.Models
             return @"CREATE PROCEDURE [dbo].[SeedCustomers]
                     @count int,
                     @name nvarchar(50),
-                    @address nvarchar(50),
-                    @categorry tinyint
+                    @address nvarchar(50)
                     AS
                     declare @i int = 0
                     while @i < @count
                     begin
-                    insert into Customers  (Name, Address, Categorry) values(CONCAT(@name + ' ', @i), CONCAT(@address + ' ', @i), (cast(0 + (RAND(checksum(newid())) * 4) as int)))
+                    insert into Customers  (Name, Address, Categorry) 
+                    values
+                    (CONCAT(@name + ' ', @i), 
+                    CONCAT(@address + ' ', @i), 
+                    (cast(0 + (RAND(checksum(newid())) * 4) as int)))
                        set @i = @i + 1;
                             end
                         RETURN 0";
@@ -164,16 +167,16 @@ namespace BD_App.Models
 
         protected override void Seed(DataContext db)
         {
-            //вызов происходит в случае изменения модели. Тогда пересоздаётся база
+            // создаём хранимые процедуры в бд
             db.Database.ExecuteSqlCommand(SeedCustomerQuery());
             db.Database.ExecuteSqlCommand(SeedOrdersQuery());
             db.Database.ExecuteSqlCommand(SeedProductsQuery());
-            // запоняем таблицу Клиенты, 100 клиентов
+
+            // запоняем таблицу Клиенты, вызывая хранимую процедуру. 100 клиентов
             SqlParameter param1 = new SqlParameter("@count", 100);
             SqlParameter param2 = new SqlParameter("@name", "Client");
-            SqlParameter param3 = new SqlParameter("@address", "Address");
-            SqlParameter param4 = new SqlParameter("@categorry", 1);
-            db.Database.ExecuteSqlCommand("[dbo].[SeedCustomers] @count, @name, @address, @categorry", param1, param2, param3, param4);
+            SqlParameter param3 = new SqlParameter("@address", "Address");          
+            db.Database.ExecuteSqlCommand("[dbo].[SeedCustomers] @count, @name, @address", param1, param2, param3);
 
             // заполняем таблицу Заказы
             db.Database.ExecuteSqlCommand("[dbo].[SeedOrders]");
@@ -185,31 +188,9 @@ namespace BD_App.Models
 
             db.Database.ExecuteSqlCommand(AddingProductsIDQuery());
             db.Database.ExecuteSqlCommand(SeedOrder_PtoductQuery());
+
+            // вызываем хранимую процедуру для заполнения таблицы связей
             db.Database.ExecuteSqlCommand("[dbo].[SeedOrder_Product]");
-            //// запоняем таблицу Клиенты, 100 клиентов
-            //SqlParameter param1 = new SqlParameter("@count", 100);
-            //SqlParameter param2 = new SqlParameter("@name", "Client");
-            //SqlParameter param3 = new SqlParameter("@address", "Address");
-            //SqlParameter param4 = new SqlParameter("@categorry", 1);
-            //db.Database.ExecuteSqlCommand("[dbo].[SeedCustomers] @count, @name, @address, @categorry", param1, param2, param3, param4);
-
-            //// заполняем таблицу Заказы
-            //db.Database.ExecuteSqlCommand("[dbo].[SeedOrders]");
-
-            ////заполняем таблицу Продукты, 5000 штук
-            //param1 = new SqlParameter("@count", 5000);
-            //param2 = new SqlParameter("@title", "Product");
-            //db.Database.ExecuteSqlCommand("[dbo].[SeedProducts] @count, @title", param1, param2);
-
-            //Customer client = new Customer { Name = "new2", Address = "ewf", Categorry = 1 }; //Categories.middle
-            //Customer client2 = new Customer { Name = "yes2", Address = "fhgh", Categorry =  2}; //
-            ////Customers client3 = new Customers { Name = "dhfdh", Address = "dhfdh", Categorry = "dhdh" };
-            ////Customers client4 = new Customers { Name = "32352352", Address = "dhh", Categorry = "df" };
-
-            //db.Customer.Add(client);
-            //db.Customer.Add(client2);
-            //db.SaveChanges();
-
         }
 
         public void SeedByStoredProc()

@@ -9,16 +9,15 @@ namespace BD_App.Models
 {
     public class DataContext : DbContext
     {
-       
-        // наполняем бд в конструкторе
+
+        public DbSet<Customer> Customer { get; set; }
+        public DbSet<Product> Products { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<Order_Product> Order_Product { get; set; }
+
         public DataContext() : base("DataContext")
         {
           
         }
-
-        public DbSet<Customer> Customer { get; set; }        
-        public DbSet<Product> Products { get; set; }
-        public DbSet<Order> Orders { get; set; }
-        public DbSet<Order_Product> Order_Product { get; set; }
     }
 }

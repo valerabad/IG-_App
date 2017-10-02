@@ -15,4 +15,15 @@ namespace BD_App.Models
         
         public virtual ICollection<Order> Orders { get; set; }
     }
+
+    public class CustomerRes
+    {
+        public int ID { get; set; }
+        public string Name { get; set; }
+        public string Address { get; set; }
+        public Categories Categorry { get; set; }
+        public int SUM { get; set; } 
+
+        public virtual ICollection<Order> Orders { get; set; }
+    }
 }

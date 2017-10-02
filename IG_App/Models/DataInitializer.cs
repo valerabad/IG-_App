@@ -10,6 +10,7 @@ namespace BD_App.Models
     {
         public string GetSQLQueryForCustomersSumOrders()
         {
+            
             return @"select CustomerID, Name, Address, SUM(po.total) as 'sum'
                      from Orders AS o join Order_Product as po 
 	                    on o.ID = po.Orders_ID
@@ -129,8 +130,8 @@ namespace BD_App.Models
 		            set @random_value1_100 = (cast(1 + (RAND(checksum(newid())) * 101) as int))
 			            while @i<@random_value1_100
 			            begin
-                          declare @pr int = (cast(20 + (RAND(checksum(newid())) * 60) as int))
-						  declare @ct int = (cast(1 + (RAND(checksum(newid())) * 20) as int))
+                          declare @pr int = (cast(5 + (RAND(checksum(newid())) * 11) as int))
+						  declare @ct int = (cast(1 + (RAND(checksum(newid())) * 6) as int))
 						  declare @total int = @pr*@ct
 			              insert into Order_Product (Orders_ID, Price, Count, Total) values (@ID, @pr, @ct, @total )
 			              --insert into Order_Product (Orders_ID) values (@ID)
@@ -178,6 +179,7 @@ namespace BD_App.Models
 
         protected override void Seed(DataContext db)
         {
+            
             // создаём хранимые процедуры в бд
             db.Database.ExecuteSqlCommand(SeedCustomerQuery());
             db.Database.ExecuteSqlCommand(SeedOrdersQuery());

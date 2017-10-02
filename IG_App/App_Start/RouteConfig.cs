@@ -16,7 +16,7 @@ namespace IG_App
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Customers", action = "Index", id = UrlParameter.Optional }
+                defaults: new { controller = "CustomerRes", action = "Index", id = UrlParameter.Optional }
             );
         }
     }

@@ -19,5 +19,7 @@ namespace BD_App.Models
         {
           
         }
+
+        public System.Data.Entity.DbSet<BD_App.Models.CustomerRes> CustomerRes { get; set; }
     }
 }

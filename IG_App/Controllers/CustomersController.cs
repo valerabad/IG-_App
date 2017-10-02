@@ -17,7 +17,9 @@ namespace BD_App.Controllers
         // GET: Customers
         public ActionResult Index()
         {
-            return View(db.Customer.ToList());
+         
+            
+                return View(db.Customer.ToList());
         }
 
         // GET: Customers/Details/5

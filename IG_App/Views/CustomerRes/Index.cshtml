@@ -1,24 +1,19 @@
-﻿@model IEnumerable<BD_App.Models.Customer>
+﻿@model IEnumerable<BD_App.Models.CustomerRes>
 
 @{
     ViewBag.Title = "Index";
 }
 
-<h2>List of customers: database was created and seeded</h2>
+<h2>Список клиентов с общей суммой по всем заказам</h2>
 
 <p>
-    @Html.ActionLink("Список клиентов с общей суммой по всем заказам", "Index", "CustomerRes")
+    @Html.ActionLink("Show clients", "Index", "Customers")
     <br />
     @Html.ActionLink("Show orders", "Index", "Orders")
     <br />
     @Html.ActionLink("Show products", "Index", "Products")
-    @*<br />
-    @Html.ActionLink("Show order with products", "Index", "Order_Product")*@
-    <br/>
-    <br/>
-    @Html.ActionLink("Create new customer", "Create")
+    
     <br />
-  
 </p>
 <table class="table">
     <tr>
@@ -27,9 +22,12 @@
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Address)
-        </th>
+        </th>   
         <th>
             @Html.DisplayNameFor(model => model.Categorry)
+        </th> 
+        <th>
+            @Html.DisplayNameFor(model => model.SUM)
         </th>
         <th></th>
     </tr>
@@ -46,10 +44,9 @@
             @Html.DisplayFor(modelItem => item.Categorry)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+            @Html.DisplayFor(modelItem => item.SUM)
         </td>
+       
     </tr>
 }
 
